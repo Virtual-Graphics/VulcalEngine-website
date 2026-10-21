@@ -3,7 +3,17 @@ title: About Vulcal Engine
 description: 了解关于 Vulcal Engine 的一切。
 ---
 
+现在很有感觉赶紧写点东西吧，其实这种感觉不是来自 VulcalEngine 而是有关自己个人的，加上被音乐感染我打算写点东西。这给了我很多 Encouragement ，谢谢你 Mafuyu ，尽管你大概可能没太大可能能看到这篇文章，我也不打算在这里聊太多我心理的感受，无论如何这让我感觉我还活在这个世界上的感觉（我太孤单了）。最近一直在慢 Vulcal Engine，我也许应该慢下来去干其他的，在 v0.0.5 完成后（这段文字在正式发布之前不应该删除，相反的这里会逐渐加更多我自己的感受）
+
 VulcalEngine 是一个游戏引擎，但相比作者的第一代游戏引擎 [Fermion](https://github.com/Yang-Junjie/Fermion.git) 体量会大很多而且功能会更完善系统更 Robust 。除此之外作者还有一个名为 [FinalEngine](https://github.com/Yang-Junjie/FinalEngine.git) 的与 VulcalEngine 的架构大致相同的游戏引擎，不过 FinalEngine 与 VulcalEngine 不同的是其中的 Graphics Api 使用的是 Vulkan 并且有 AI 参与（大部分是 vibe coding），而 VulcalEngine 将采用非 vibe coding 的形式，并且使用 OpenGL 4.6 以及其中的大部分系统都会比 FinalEngine 轻量化很多。
+
+## 命名
+说说关于为什么从 MiniEngine 改名为 VulcalEngine 吧，首先是我认为我的目标远远不仅仅局限于一个 Mini 的游戏引擎，我的野心是非常大的那就是替代 Unreal Engine ，为什么是 Unreal Engine？因为 Unreal Engine 是以渲染效果著称的，而我最擅长（相比起来我不算什么）的就是渲染器。而 Vulcal 是来自我一个系列项目的名称，如果你对 图形 API 熟悉的话可以察觉到这和 Vulkan 非常的像。没错因为 Vulcal 这个名字是从 [Vulcao](https://github.com/Yang-Junjie/vulcao) 和 [Vulchovy](https://github.com/Yang-Junjie/vulchovy) 以及 vocal 这个单词衍生而来，而 vulcao 和 vulkan 直接相关（它是一个轻量 vulkan 封装库），以及为什么我会结合 vocal 这个单词，因为我是看到我的 nina 的立牌上写着这个单词。这正好蕴意着 Vulcal Engine 是整个 Virtual Graphics 的最中心的项目。
+
+
+## 目标
+Vulcal Engine 的 v1.0.0 的目标是构建一个轻量的、对开发者友好的、模块不可替换的、适合做图形学教学的游戏引擎。目标是提供兼容 OpenGL4.6 Vulkan（最新特新）的 RHI 接口，包括能直接操控底层语义的 RHI（供高级开发者使用），较为上层的简单实用的图形接口。并且我们需要做到的是渲染器可单独抽离出来作为单独的项目使用（明确未来会将渲染器抽离作为 vulchovy 的实时渲染器用于场景搭建），对于物理系统我们打算提供一种抽象接口，默认使用 Box2D 和 Box3D ，同时提供我们的教学 2D 刚体物理引擎。 脚本我们打算不提供多种编程语言的适配，支持且仅支持 C# 作为脚本语言（因为我不想再维护一层抽象加大性能开销不说，还拉长我们的开发周期）。
+
 
 ## 为什么开发一个新引擎
 说到这，我为什么又要开发一个游戏引擎，开发一个我心目中理想的游戏引擎一直都是我追随的目标，我认为我很大情况下是一个理想主义者，对于功利性的事我有点不感兴趣，即使它能给我带来财富，好了不扯远了，到目前为止加上现在这两个我已经开发 6 个完成度各不相同的引擎，它们的架构都不一样而它们的架构目标的都是向着我理想中游戏引擎的架构出发的，而我目前发现我自己的能力完全不足以实现这个目标，也许配上顶级 AI 我能做到，但是我自己将看不懂 AI 设计的各种复杂系统，所以我打算从自己熟悉的架构出发（也就是 [Hazel](https://github.com/TheCherno/Hazel)）再以这些日子我取得的进步再重新写一个非我理想架构的游戏引擎，这次应该能做得更好，也是为了回应之前在 [Fermion 视频](https://www.bilibili.com/video/BV13oAUzJEis/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b60fadc84379e52fc7b933fab5a8751c)中提到的：“也许未来我还会开发一个新的更完整的游戏引擎”。
