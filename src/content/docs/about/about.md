@@ -7,6 +7,8 @@ description: 了解关于 Vulcal Engine 的一切。
 
 VulcalEngine 是一个游戏引擎，但相比作者的第一代游戏引擎 [Fermion](https://github.com/Yang-Junjie/Fermion.git) 体量会大很多而且功能会更完善系统更 Robust 。除此之外作者还有一个名为 [FinalEngine](https://github.com/Yang-Junjie/FinalEngine.git) 的与 VulcalEngine 的架构大致相同的游戏引擎，不过 FinalEngine 与 VulcalEngine 不同的是其中的 Graphics Api 使用的是 Vulkan 并且有 AI 参与（大部分是 vibe coding），而 VulcalEngine 将采用非 vibe coding 的形式，并且使用 OpenGL 4.6 以及其中的大部分系统都会比 FinalEngine 轻量化很多。
 
+> 需要注意的是，开发这个引擎的 Artichoke 并不是一个专业的引擎开发者，并没有在 Epic Unreal Engine 、Unity 、Godot 等引擎公司待过，并且她甚至连熟练的使用游戏引擎都不会，并且开发工作只有她一人，所以她不能开发出一个很完美的游戏引擎，她所作的一切仅仅是 JUST FOR FUN。但这也有一个好的方面，她能以一个全新的视角设计出一个完全不同于其它游戏引擎的引擎。也许是架构，也许是开发游戏的工作流，但她遇到一些问题还是会参考其他引擎的做法，因为凭靠她自己不能完成一些现有复杂的模块，所以有时候会参考一些现有的优秀的设计。
+
 ## 命名
 说说关于为什么从 MiniEngine 改名为 VulcalEngine 吧，首先是我认为我的目标远远不仅仅局限于一个 Mini 的游戏引擎，我的野心是非常大的那就是替代 Unreal Engine ，为什么是 Unreal Engine？因为 Unreal Engine 是以渲染效果著称的，而我最擅长（相比起来我不算什么）的就是渲染器。而 Vulcal 是来自我一个系列项目的名称，如果你对 图形 API 熟悉的话可以察觉到这和 Vulkan 非常的像。没错因为 Vulcal 这个名字是从 [Vulcao](https://github.com/Yang-Junjie/vulcao) 和 [Vulchovy](https://github.com/Yang-Junjie/vulchovy) 以及 vocal 这个单词衍生而来，而 vulcao 和 vulkan 直接相关（它是一个轻量 vulkan 封装库），以及为什么我会结合 vocal 这个单词，因为我是看到我的 nina 的立牌上写着这个单词。这正好蕴意着 Vulcal Engine 是整个 Virtual Graphics 的最中心的项目。
 
