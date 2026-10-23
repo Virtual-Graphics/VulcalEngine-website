@@ -9,6 +9,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'VulcalEngine Docs',
+			customCss: ['./src/styles/custom.css'],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/Virtual-Graphics/VulcalEngine' }],
 			// sidebar: [
 			// 	{

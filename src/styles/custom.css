@@ -1,0 +1,397 @@
+/* Shared tokens keep Starlight's navigation, search, and content in one palette. */
+:root {
+	--sl-font: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', sans-serif;
+	--sl-font-mono: 'Cascadia Code', Consolas, monospace;
+	--sl-content-width: 45rem;
+	--sl-sidebar-width: 17rem;
+	--sl-content-gap-y: 1.4rem;
+	--sl-line-height: 1.9;
+	--sl-line-height-headings: 1.3;
+	--sl-text-h1: clamp(2rem, 3.5vw, 2.8rem);
+	--sl-text-h2: 1.65rem;
+	--sl-text-h3: 1.25rem;
+	--sl-text-h4: 1.1rem;
+}
+
+:root,
+::backdrop {
+	--sl-color-white: #f0f0eb;
+	--sl-color-gray-1: #dedfd8;
+	--sl-color-gray-2: #c1c3bb;
+	--sl-color-gray-3: #969a90;
+	--sl-color-gray-4: #62665e;
+	--sl-color-gray-5: #363a34;
+	--sl-color-gray-6: #20231f;
+	--sl-color-black: #141613;
+	--sl-color-accent-low: #38271f;
+	--sl-color-accent: #da9d7e;
+	--sl-color-accent-high: #edb99c;
+	--sl-color-text-accent: var(--sl-color-accent);
+	--sl-color-text-invert: var(--sl-color-black);
+	--sl-color-bg-nav: var(--sl-color-bg);
+	--sl-color-bg-sidebar: var(--sl-color-bg);
+	--sl-color-bg-inline-code: var(--sl-color-gray-6);
+	--sl-color-hairline: #2b2f28;
+	--sl-color-hairline-light: var(--sl-color-hairline);
+	--sl-color-hairline-shade: var(--sl-color-hairline);
+	--sl-color-backdrop-overlay: rgb(10 12 9 / 65%);
+	--ve-surface: #1b1e19;
+	--ve-nav-bg: rgb(20 22 19 / 93%);
+	--ve-selection: #543b2e;
+	--ve-glow: rgb(218 157 126 / 5%);
+}
+
+:root[data-theme='light'],
+[data-theme='light'] ::backdrop {
+	--sl-color-white: #20251f;
+	--sl-color-gray-1: #33392f;
+	--sl-color-gray-2: #4f554b;
+	--sl-color-gray-3: #6d7367;
+	--sl-color-gray-4: #8c9187;
+	--sl-color-gray-5: #d4d7ce;
+	--sl-color-gray-6: #eeefe8;
+	--sl-color-gray-7: #f4f4ee;
+	--sl-color-black: #fafaf6;
+	--sl-color-accent-low: #f2e6dc;
+	--sl-color-accent: #984c32;
+	--sl-color-accent-high: #7d3e28;
+	--sl-color-text-accent: var(--sl-color-accent);
+	--sl-color-text-invert: var(--sl-color-black);
+	--sl-color-bg-nav: var(--sl-color-bg);
+	--sl-color-bg-sidebar: var(--sl-color-bg);
+	--sl-color-bg-inline-code: var(--sl-color-gray-6);
+	--sl-color-hairline: #e2e4da;
+	--sl-color-hairline-light: var(--sl-color-hairline);
+	--sl-color-hairline-shade: var(--sl-color-hairline);
+	--sl-color-backdrop-overlay: rgb(32 37 31 / 35%);
+	--ve-surface: #f0f1ea;
+	--ve-nav-bg: rgb(250 250 246 / 93%);
+	--ve-selection: #ebd8c6;
+	--ve-glow: rgb(152 76 50 / 4%);
+}
+
+::selection {
+	background: var(--ve-selection);
+	color: var(--sl-color-white);
+}
+
+:focus-visible {
+	outline: 2px solid var(--sl-color-accent);
+	outline-offset: 4px;
+}
+
+/* A quiet, translucent header with the wordmark as its visual anchor. */
+.page > header.header {
+	background: var(--ve-nav-bg);
+	backdrop-filter: blur(16px);
+}
+
+.site-title {
+	color: var(--sl-color-white);
+	font-size: 1.05rem;
+	font-weight: 650;
+	letter-spacing: -0.035em;
+}
+
+.social-icons a {
+	color: var(--sl-color-gray-2);
+}
+
+.social-icons::after {
+	height: 1.25rem;
+	border-color: var(--sl-color-hairline);
+}
+
+starlight-theme-select select {
+	font-size: 0.8rem;
+}
+
+site-search button[data-open-modal] {
+	color: var(--sl-color-gray-2);
+}
+
+site-search dialog {
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: 0.75rem;
+	box-shadow: 0 24px 80px rgb(0 0 0 / 16%);
+}
+
+/* Keep splash-only layout rules away from the document reading column. */
+:root:not([data-has-sidebar]) {
+	--sl-content-width: 68rem;
+	--sl-content-pad-x: clamp(1.5rem, 5vw, 4rem);
+}
+
+:root:not([data-has-sidebar]) .main-pane {
+	width: 100%;
+}
+
+.hero {
+	position: relative;
+	gap: 2rem;
+	padding-block: 2.5rem 3.5rem;
+	border-bottom: 1px solid var(--sl-color-hairline);
+	background: radial-gradient(ellipse at 85% 45%, var(--ve-glow), transparent 55%);
+}
+
+.hero > img {
+	width: 13rem;
+	max-width: 65%;
+}
+
+.hero h1 {
+	font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+	font-weight: 600;
+	letter-spacing: -0.065em;
+	line-height: 1.08;
+}
+
+.hero .tagline {
+	color: var(--sl-color-gray-3);
+	font-size: clamp(1rem, 1.6vw, 1.2rem);
+	letter-spacing: 0.06em;
+}
+
+.hero .stack {
+	gap: 2rem;
+}
+
+.hero .copy {
+	gap: 1.5rem;
+}
+
+.hero .actions {
+	gap: 1rem 2rem;
+}
+
+.hero .sl-link-button {
+	min-height: 3rem;
+	padding: 0.8rem 1.35rem;
+	border-radius: 0.35rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+
+.hero .sl-link-button.primary {
+	background: var(--sl-color-white);
+	border-color: var(--sl-color-white);
+	color: var(--sl-color-black);
+}
+
+.hero .sl-link-button.primary:hover {
+	background: var(--sl-color-gray-1);
+	border-color: var(--sl-color-gray-1);
+}
+
+.hero .sl-link-button.minimal {
+	padding-inline: 0.25rem;
+	color: var(--sl-color-gray-2);
+}
+
+.hero .sl-link-button.minimal:hover {
+	color: var(--sl-color-accent);
+}
+
+.hero .sl-link-button svg {
+	width: 1.1rem;
+	height: 1.1rem;
+}
+
+:root:not([data-has-sidebar]) .sl-markdown-content > .sl-heading-wrapper {
+	margin-block: 2.75rem 1.75rem;
+}
+
+:root:not([data-has-sidebar]) .sl-markdown-content h2 {
+	color: var(--sl-color-gray-3);
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+:root:not([data-has-sidebar]) .card-grid {
+	gap: 2rem;
+}
+
+:root:not([data-has-sidebar]) .card-grid.stagger {
+	--stagger-height: 0rem;
+	padding-bottom: 0;
+}
+
+:root:not([data-has-sidebar]) .card {
+	gap: 0.75rem;
+	padding: 1.5rem 0 0.5rem;
+	border: 0;
+	border-top: 1px solid var(--sl-color-hairline);
+	background: transparent;
+}
+
+:root:not([data-has-sidebar]) .card .title {
+	font-size: 1.1rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+}
+
+:root:not([data-has-sidebar]) .card .body {
+	color: var(--sl-color-gray-3);
+	font-size: 0.9rem;
+}
+
+:root:not([data-has-sidebar]) .pagination-links {
+	display: flex;
+	justify-content: flex-end;
+	border-top: 1px solid var(--sl-color-hairline);
+}
+
+:root:not([data-has-sidebar]) .pagination-links a {
+	flex: 0 1 auto;
+	width: auto;
+	padding-inline: 0;
+	border: 0;
+}
+
+/* Document typography and understated navigation. */
+:root[data-has-sidebar] .content-panel {
+	padding-block: 2rem;
+}
+
+:root[data-has-sidebar] h1#_top {
+	font-weight: 600;
+	letter-spacing: -0.045em;
+	text-wrap: balance;
+}
+
+.sl-markdown-content {
+	overflow-wrap: break-word;
+}
+
+.sl-markdown-content :is(h2, h3, h4) {
+	letter-spacing: -0.025em;
+	text-wrap: balance;
+}
+
+.sl-markdown-content a:not(.sl-anchor-link, .not-content) {
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+.sl-markdown-content blockquote {
+	padding: 1rem 1.25rem;
+	border-inline-start: 2px solid var(--sl-color-accent);
+	border-radius: 0 0.35rem 0.35rem 0;
+	background: var(--ve-surface);
+	font-size: 0.95rem;
+}
+
+.sl-markdown-content :not(pre) > code {
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: 0.25rem;
+}
+
+.sl-markdown-content pre,
+.expressive-code .frame {
+	border-radius: 0.5rem;
+}
+
+.sl-markdown-content img {
+	border-radius: 0.4rem;
+}
+
+.sidebar-content {
+	padding-top: 1.75rem;
+}
+
+.sidebar-content .large {
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+
+.sidebar-content a {
+	padding-block: 0.6rem;
+	border-radius: 0.3rem;
+}
+
+.sidebar-content a:hover {
+	background: var(--ve-surface);
+}
+
+.sidebar-content a[aria-current='page'] {
+	background: var(--sl-color-accent-low);
+	color: var(--sl-color-accent-high);
+}
+
+starlight-toc a {
+	padding-block: 0.45rem;
+	line-height: 1.5;
+}
+
+starlight-toc a[aria-current='true'] {
+	background: var(--sl-color-accent-low);
+}
+
+.pagination-links a {
+	padding: 1.25rem;
+	border-color: var(--sl-color-hairline);
+	border-radius: 0.4rem;
+	box-shadow: none;
+}
+
+.pagination-links a:hover {
+	border-color: var(--sl-color-accent);
+}
+
+.pagination-links .link-title {
+	font-size: 1.05rem;
+	font-weight: 500;
+}
+
+@media (min-width: 50rem) {
+	:root {
+		--sl-nav-height: 4.5rem;
+	}
+
+	site-search button[data-open-modal] {
+		max-width: 20rem;
+		border-color: var(--sl-color-hairline);
+		border-radius: 0.35rem;
+		background: var(--ve-surface);
+	}
+
+	.hero {
+		grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+		min-height: 30rem;
+		padding-block: 5.5rem;
+	}
+
+	.hero > img {
+		width: 23rem;
+		max-width: 100%;
+	}
+
+	:root:not([data-has-sidebar]) .card-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 3rem;
+	}
+
+	:root:not([data-has-sidebar]) .card {
+		padding-block: 1.75rem 1rem;
+	}
+}
+
+@media (max-width: 49.999rem) {
+	.hero .stack {
+		min-width: 0;
+	}
+
+	.sidebar-content a {
+		min-height: 2.75rem;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.hero .sl-link-button,
+	.sidebar-content a,
+	.pagination-links a {
+		transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+	}
+}
