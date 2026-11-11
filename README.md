@@ -1,49 +1,33 @@
-# Starlight Starter Kit: Basics
+# Vulcal Engine 网站
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+Vulcal Engine 的官方网站与文档，使用 Docusaurus 构建。
 
-```
-npm create astro@latest -- --template starlight
-```
+- 网站：https://virtual-graphics.github.io/VulcalEngine-website/
+- 网站仓库：https://github.com/Virtual-Graphics/VulcalEngine-website
+- 引擎仓库：https://github.com/Virtual-Graphics/VulcalEngine
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 本地开发
 
-## 🚀 Project Structure
+建议使用 Node.js 24，与 GitHub Actions 的构建环境保持一致。
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
-
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+```bash
+npm ci
+npm run start
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+## 生产构建
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+```bash
+npm run build
+npm run serve
+```
 
-Static assets, like favicons, can be placed in the `public/` directory.
+静态网站生成到 `build/` 目录。`node_modules/`、`build/` 和 `.docusaurus/` 不提交到仓库。
 
-## 🧞 Commands
+## 部署
 
-All commands are run from the root of the project, from a terminal:
+推送到 `main` 分支会自动触发 `.github/workflows/deploy.yml`，安装依赖、构建网站并发布到 GitHub Pages。也可以在 GitHub Actions 中手动运行该工作流。
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+仓库的 **Settings → Pages → Build and deployment → Source** 应选择 **GitHub Actions**。
 
-## 👀 Want to learn more?
-
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+网站发布路径为 `/VulcalEngine-website/`，对应 `docusaurus.config.js` 中的 `url` 和 `baseUrl`。
