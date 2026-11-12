@@ -1,4 +1,9 @@
 devlog:
   label: devlog
   permalink: /devlog
-  description: vulcal engine devlog
+  description: devlog of vulcal engine 
+
+release:
+  label: release
+  permalink: /release
+  description:  release of vulcal engine
