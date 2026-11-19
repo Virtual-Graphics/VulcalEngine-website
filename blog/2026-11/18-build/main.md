@@ -142,3 +142,43 @@ vulcal_player <vulcal_game.vpak>
 - 对 `.vpak` 文件进行加密，在 `vulcal_build` 时提供 密码参数
 
 但是第一版我们就不做这些了，我们不加密，并且直接使用 文本文件，即把 场景序列化/反序列化 直接移动到 kernel 。
+
+### vulcal_build
+`vulcal_build` 执行类似如下步骤：
+
+1. 加载 `.vproj`
+2. ~~先进行验证阶段，我们需要知道的前提是，目前我们没有强制约束 vulcal project 的文件分布，怎么组织全靠开发者自觉（未来我们打算强制将资源都放在 `assets_dir` 下），所以我们假设目前所有的开发者将资源都放入了 `assets_dir` 我们需要递归遍历 `assets_dir` 下的所有 `.vscene` 文件 判断其引用的资源是否存在，（以及资源引用的其他资源是否存在。这个我在 asset_pipeline 添加一个新的概念，叫做 assets_checker 用于判断资源是否能正确的进行打包，结果写入 `.vproj` 的某个字段中）~~(第一次实现先不管)
+3. 如果加载成功则，再进行文件归档阶段（我们先假设所有的文件都符合要求），将我们上述 [标准项目结构与打包内容](#标准项目结构与打包内容) 提到的文件复制到 ``build_dir`，并收集字段并写入 `.vmanifest` 最后压缩为 `.vpak`
+
+### ResourceProvider
+由于我们在引入 `.vpak` 文件后，我们就会有两种资源寻址方式：
+- 在 `vulcal_editor` 中，或者开发阶段，我们通常直接访问操作系统的文件系统。例如读取 assets/scenes/arena.vscene 时，在指定项目根目录下找到对应文件并返回内容。主要供编辑器和打包器使用。
+- 在 `vulcal_player` 中，或者运行阶段，我们通常直接访问打包好的 `.vpak` 文件。打开 ZIP、建立条目索引；读取同一路径时，从 ZIP 中找到条目并在内存中解压返回，不需要先把整个包释放到磁盘。主要供 `vulcal_player` 使用。
+
+所以我们可以设计一个 `ResourceProvider` 抽象接口，将资源从哪里来给统一起来，场景加载、Lua 执行、资产读取时只需要给它一个逻辑路径并读取内容，不必知道内容存放在普通目录还是 .pak 里。
+
+```cpp
+class ResourceProvider {
+public:
+    virtual ~ResourceProvider() = default;
+
+    virtual bool contains(std::string_view path) const = 0;
+    virtual std::vector<std::byte> read_binary(std::string_view path) const = 0;
+    virtual std::string read_text(std::string_view path) const = 0;
+};
+```
+
+提供两个实现：
+
+- `DirectoryProvider`：编辑器和打包器读取项目目录。
+- `PakProvider`：player 使用 miniz 打开 ZIP，建立中央目录索引，按需读取条目。
+
+所有逻辑路径统一为 UTF-8、相对路径、正斜杠格式。
+
+现有系统改为支持 provider：
+
+- `SceneSerializer` 支持从 provider 读取文本。
+- `AssetLibrary`/`AssetManager` 支持从 provider 读取 cooked 二进制。
+- `MeshAsset`、`MaterialAsset`、`TextureAsset` 增加内存数据读取入口。
+- `ScriptRuntime` 支持从 provider 读取 Lua 源码，并使用内存脚本执行。
+- 现有基于文件路径的 API 保留为 `DirectoryProvider` 兼容包装。
