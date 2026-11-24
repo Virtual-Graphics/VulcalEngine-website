@@ -15,30 +15,13 @@ Vulcal Engine 是一个架构清晰、代码极简、无 AI Slop、非 Vibe Codi
 - Native C++ 开发模式
 
 
-## START
-目前 Vulcal Engine 支持 Windows 与 Linux 两个平台，要求 CMake 版本大于等于 `3.28`，以及支持 C++23 的编译器和 OpenGL 4.6 的显卡驱动。第三方依赖会在配置阶段自动下载，首次配置需要联网。
+## 开始使用
 
-构建：
+Vulcal Engine 支持 Windows 和 Linux。
 
-```bash
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
-cmake --build build --parallel
-```
-
-Windows 也可以直接使用 CMake Preset，例如 `cmake --preset msvc` 或 `cmake --preset clang-debug`。
-
-运行：
-
-```bash
-./build/bin/editor                    # 编辑器，可打开 projects/ 下的 .vproj
-./build/bin/model_viewer model.obj    # 查看 OBJ 模型
-ctest --test-dir build --output-on-failure
-```
-
-如果你依然构建失败，可以将如下 Prompt 发送给你的 Agent
-```
-帮我在电脑本地成功构建 https://github.com/Virtual-Graphics/VulcalEngine 这个项目
-```
+- [构建与打包](./building.mdx)介绍源码构建、测试和游戏发布。
+- [示例项目](./examples.mdx)介绍如何在编辑器中运行仓库自带的游戏。
+- [Tracy 性能分析](./profiling.mdx)介绍如何采集 CPU、GPU 和帧统计。
 
 
 
@@ -64,8 +47,9 @@ ctest --test-dir build --output-on-failure
 我们需要明确高度约束的是代码质量，系统一致性，架构一致性，如果当代码变得 人类无法维护 则说明已经被 AI 写烂了需要回退代码重构。哈嗯，你也想被 AI 一次 commit `100'000` 行代码，一天上千次 commit 的 AI Slop 淹没吗？
 
 
-## OTHER
-现在初步基本由我一个人完成对 VulcalEngine 的全部工作，并且不支持任何人添加 Pull Request ，如果你想指出一些问题应该直接联系作者，至于联系方式嘛，既然你都能看到这个仓库了，还会没有作者的联系方式？作者将会在业余时间开发，哈哈，其实作者更本没有工作，大三在读学生，应该说作者所有的时间都是业余时间，但是作者除了 VulcalEngine 要开发外，还有更多的其他的事情要做，作者只会在觉得这个时间段是开发 VulcalEngine 合适的时间段进行开发。
+## 参与开发
+
+项目由作者在业余时间维护。提交问题或代码前，请参阅引擎仓库的[贡献指南](https://github.com/Virtual-Graphics/VulcalEngine/blob/main/CONTRIBUTING.md)。
 
 ## ABOUT
 采用 MIT 开源证书，本引擎能随意修改并作为商用，并且引擎开发的游戏也能随意商用，提供最高的自由度。
