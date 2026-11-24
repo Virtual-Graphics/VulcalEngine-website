@@ -20,15 +20,26 @@ description: 在 Windows 和 Linux 上构建 Vulcal Engine，并将编辑器项�
 
 Vulcal Engine v0.0.5 以源码形式发布。从解压后的源码包构建时，无需保留 Git 仓库历史。
 
+### 选择构建预设
+
+有适用预设时，推荐先用 `cmake --preset <名称>` 配置，再用 `cmake --build --preset <名称>` 构建。预设记录了仓库支持的工具链和构建选项。运行 `cmake --list-presets=all` 可查看可用的配置预设和构建预设。
+
+| 场景 | 推荐方式 |
+| --- | --- |
+| Windows 日常开发 | `msvc`，使用 Visual Studio 2026 和 MSVC。 |
+| Windows 使用 Clang | `clang-debug` 使用 PATH 上的 `clang-cl` 和 Ninja，`vs-clangcl` 使用 Visual Studio 的 ClangCL 工具集。 |
+| Windows 或 Linux 构建分发用播放器 | `release-static`，启用静态依赖，关闭测试和 Tracy。 |
+| Linux 日常开发 | `linux-debug`，使用 Ninja 和系统默认的 C/C++ 编译器。 |
+
 ### Windows
 
 安装 Visual Studio 的 C++ 桌面开发工作负载。使用仓库的 `msvc` 预设时，需要 Visual Studio 2026 和 x64 C++ 工具链。
 
 ```powershell
-cmake --preset msvc -B build/msvc
-cmake --build build/msvc --config Debug --parallel
-ctest --test-dir build/msvc -C Debug --output-on-failure
-.\build\msvc\bin\Debug\vulcal_editor.exe
+cmake --preset msvc
+cmake --build --preset msvc --parallel
+ctest --test-dir build -C Debug --output-on-failure
+.\build\bin\Debug\vulcal_editor.exe
 ```
 
 ### Linux
@@ -46,26 +57,29 @@ sudo apt-get install -y \
 ```
 
 ```bash
-cmake -S . -B build/linux-debug -G Ninja -DCMAKE_BUILD_TYPE=Debug
-cmake --build build/linux-debug --parallel
+cmake --preset linux-debug
+cmake --build --preset linux-debug --parallel
 ctest --test-dir build/linux-debug --output-on-failure
 ./build/linux-debug/bin/vulcal_editor
 ```
 
 如需查看 OBJ 模型，可在同一 `bin` 输出目录运行 `model_viewer`，并传入模型文件路径。
 
-### 构建预设
+### 预设参考
 
 | 预设 | 工具链 | 配置 |
 | --- | --- | --- |
 | `clang` | PATH 上的 `clang-cl` 和 Ninja | 基础配置预设，使用时可指定 `CMAKE_BUILD_TYPE` |
 | `clang-debug` | PATH 上的 `clang-cl` 和 Ninja | `Debug` |
 | `clang-release` | PATH 上的 `clang-cl` 和 Ninja | `RelWithDebInfo` |
+| `linux-debug` | Linux 系统默认的 C/C++ 编译器，Ninja | `Debug`，输出到 `build/linux-debug` |
 | `msvc` | Visual Studio 2026，MSVC，x64 | 构建预设选用 `Debug` |
 | `vs-clangcl` | Visual Studio 2026，ClangCL，x64 | 构建预设选用 `Debug` |
 | `release-static` | 由 CMake 环境或配置命令指定 | `Release`，启用静态依赖，关闭测试和 Tracy |
 
-Ninja 等单配置生成器在配置时用 `CMAKE_BUILD_TYPE` 选择配置，程序输出到构建目录下的 `bin`。Visual Studio 等多配置生成器在构建时用 `--config` 选择配置，程序输出到 `bin/<配置>`。更换生成器或工具链时，使用独立的构建目录。
+Ninja 等单配置生成器在配置时用 `CMAKE_BUILD_TYPE` 选择配置，程序输出到构建目录下的 `bin`。Visual Studio 等多配置生成器在构建时用 `--config` 选择配置，程序输出到 `bin/<配置>`。
+
+`msvc`、`vs-clangcl` 和 Clang 系列预设默认共用 `build`。如需在同一份源码中并行使用这些工具链，配置时用 `-B` 指定独立目录，随后用 `cmake --build <构建目录>` 构建。多配置生成器仍需指定 `--config`。
 
 ### CMake 选项
 
@@ -86,7 +100,7 @@ Ninja 等单配置生成器在配置时用 `CMAKE_BUILD_TYPE` 选择配置，程
 
 引擎在构建时嵌入内置着色器。修改 `vulcal_engine/render/shaders/` 下的着色器后，重新构建即可更新程序。运行时无需访问源码目录或外部 GLSL 文件。
 
-默认测试无需图形显示环境。要运行图形测试，配置时加上 `-DBUILD_GRAPHICS_TESTS=ON`，然后重新构建并运行 CTest。图形测试需要可用的 OpenGL 4.6 显示环境。Visual Studio 构建运行测试时，使用与构建相同的配置，例如 `ctest --test-dir build/msvc -C Debug --output-on-failure`。
+默认测试无需图形显示环境。要运行图形测试，配置时加上 `-DBUILD_GRAPHICS_TESTS=ON`，然后重新构建并运行 CTest。图形测试需要可用的 OpenGL 4.6 显示环境。Visual Studio 构建运行测试时，使用与构建相同的配置，例如 `ctest --test-dir build -C Debug --output-on-failure`。
 
 ### 构建用于分发的播放器
 
